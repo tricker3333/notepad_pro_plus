@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "902203386107",
+    "project_id": "notepad-pro-plus",
+    "storage_bucket": "notepad-pro-plus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902203386107:android:98842dfcb11a28b4e8685e",
+        "android_client_info": {
+          "package_name": "com.example.notepad_pro_plus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYUZlgHsrLkIOvTsgCr7SE2BRCOUnEq0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
