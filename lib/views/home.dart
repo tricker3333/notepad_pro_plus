@@ -107,7 +107,16 @@ class _HomePgState extends State<HomePg> {
                                           "Are you Sure to Delete this Item"),
                                       actions: <Widget>[
                                     TextButton(
-                                        onPressed: () {}, child: Text("Yes")),
+                                      onPressed: () async {
+                                        await FirebaseFirestore.instance
+                                            .collection("Notes")
+                                            .doc(_noteId)
+                                            .delete();
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentMaterialBanner();
+                                      },
+                                      child: Text("Yes"),
+                                    ),
                                     TextButton(
                                         onPressed: () =>
                                             ScaffoldMessenger.of(context)
