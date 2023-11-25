@@ -25,7 +25,6 @@ class _LoginPgState extends State<LoginPg> {
         backgroundColor: Colors.blue,
         centerTitle: true,
         title: 'Login'.text.white.bold.xl2.make(),
-        actions: const [Icon(Icons.more_vert_rounded)],
       ),
       body: SingleChildScrollView(
         child: Padding(

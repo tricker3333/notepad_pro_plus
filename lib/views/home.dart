@@ -1,11 +1,10 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notepad_pro_plus/views/addnote.dart';
+import 'package:notepad_pro_plus/views/editnote.dart';
 import 'package:notepad_pro_plus/views/login.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -26,7 +25,7 @@ class _HomePgState extends State<HomePg> {
         centerTitle: true,
         title: 'Home'.text.white.bold.xl2.make(),
         actions: [
-          GestureDetector(
+          InkWell(
             child: const Icon(Icons.logout_rounded),
             onTap: () {
               FirebaseAuth.instance.signOut();
@@ -36,6 +35,11 @@ class _HomePgState extends State<HomePg> {
         ],
       ),
       body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/imgs/not.jpg"), fit: BoxFit.cover)),
         padding: EdgeInsets.all(15),
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
@@ -64,14 +68,34 @@ class _HomePgState extends State<HomePg> {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
-                  var _notes = snapshot.data!.docs[index]["Note"];
+                  var _createdId = snapshot.data!.docs[index]["createdAt"];
+                  var _notesTitle = snapshot.data!.docs[index]["NoteTitle"];
+                  var _notesBody = snapshot.data!.docs[index]["NoteBody"];
                   var _usermail = snapshot.data!.docs[index]["UserID"];
+                  var _noteId = snapshot.data!.docs[index].id;
                   return Card(
                     child: ListTile(
-                      subtitle: Text(_usermail),
-                      title: Text(_notes),
+                      subtitle: Text(
+                        _notesBody,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      title: Text(
+                        _notesTitle,
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.w400),
+                      ),
                       trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-                        InkWell(onTap: () {}, child: Icon(Icons.edit)),
+                        InkWell(
+                            onTap: () {
+                              print(_noteId);
+                              print(_createdId);
+                              Get.to(() => EditNotePg(), arguments: {
+                                'NoteTitle': _notesTitle,
+                                'NoteBody': _notesBody,
+                                'docId': _noteId,
+                              });
+                            },
+                            child: Icon(Icons.edit)),
                         SizedBox(
                           width: 15,
                         ),
